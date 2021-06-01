@@ -21,9 +21,8 @@ public class Permission {
 
     private PermissionEnum name;
 
-
-    @ManyToMany(mappedBy = "permissions")
-    private Set<Role> roles = new HashSet<Role>();
+//    @ManyToMany(mappedBy = "permissions")
+//    private Set<Role> roles = new HashSet<Role>();
 
     public Permission(PermissionEnum name) {
         this.name = name;

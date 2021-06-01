@@ -20,7 +20,9 @@ public class MainApi {
 
     @GetMapping("/user")
     public Principal user(Principal user) {
+
         return user;
+
     }
     @PostMapping("/logout")
     public String logout(){

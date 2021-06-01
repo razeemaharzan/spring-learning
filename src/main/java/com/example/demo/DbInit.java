@@ -84,8 +84,7 @@ public class DbInit implements CommandLineRunner {
 
         Map<String, Role> roles = getRoles(permissions);
 
-        Users admin = Users
-                .builder()
+        Users admin = Users.builder()
                 .email("abc@jklsdf.sdkljf")
                 .username("admin")
                 .password("admin")
@@ -101,6 +100,7 @@ public class DbInit implements CommandLineRunner {
                 .build();
 
         userService.save(admin);
+        userService.findByUsername("admin");
 
         userService.save(normalUser);
     }

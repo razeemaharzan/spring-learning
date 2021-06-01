@@ -1,8 +1,6 @@
 package com.example.demo.domain;
 
-import lombok.Builder;
-import lombok.Setter;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +11,8 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserPrincipal implements UserDetails {
 
     private Long id;
@@ -20,8 +20,13 @@ public class UserPrincipal implements UserDetails {
     private String email;
     private Collection<? extends GrantedAuthority> roles;
     private Collection<? extends GrantedAuthority> permissions;
-    private Users users;
+    private Users user;
 
+    public UserPrincipal(Users user) {
+        this.user = user;
+        createUserPrincipal(user);
+
+    }
     public  static UserPrincipal createUserPrincipal(Users users) {
         if (users != null) {
             List<GrantedAuthority> roles= users.getRoles().stream().filter(Objects::nonNull)
@@ -45,7 +50,7 @@ public class UserPrincipal implements UserDetails {
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = new HashSet<>(this.users.getRoles());
+        Set<Role> roles = new HashSet<>(this.user.getRoles());
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
         for (Role role : roles) {
@@ -53,16 +58,17 @@ public class UserPrincipal implements UserDetails {
         }
 
         return authorities;
+
     }
 
     @Override
     public String getPassword() {
-        return users.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return users.getUsername();
+        return user.getUsername();
     }
 
     @Override
