@@ -27,27 +27,28 @@ public class UserPrincipal implements UserDetails {
         createUserPrincipal(user);
 
     }
-    public  static UserPrincipal createUserPrincipal(Users users) {
+
+    public void createUserPrincipal(Users users) {
         if (users != null) {
-            List<GrantedAuthority> roles= users.getRoles().stream().filter(Objects::nonNull)
+            List<GrantedAuthority> roles = users.getRoles().stream().filter(Objects::nonNull)
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
                     .collect(Collectors.toList());
 
             List<GrantedAuthority> permissions = users.getRoles().stream().filter(Objects::nonNull)
                     .map(Role::getPermissions).flatMap(Collection::stream)
-                    .map(permission-> new SimpleGrantedAuthority(permission.getName().name()))
+                    .map(permission -> new SimpleGrantedAuthority(permission.getName().name()))
                     .collect(Collectors.toList());
 
-            return UserPrincipal.builder()
-                    .id(users.getId())
-                    .name(users.getUsername())
-                    .email(users.getEmail())
-                    .roles(roles)
-                    .permissions(permissions)
-                    .build();
+            this.setId(users.getId());
+
+            this.setName(users.getUsername());
+            this.setEmail(users.getEmail());
+            this.setRoles(roles);
+            this.setPermissions(permissions);
+
         }
-        return null;
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<Role> roles = new HashSet<>(this.user.getRoles());

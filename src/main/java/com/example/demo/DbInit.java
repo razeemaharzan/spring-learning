@@ -100,7 +100,7 @@ public class DbInit implements CommandLineRunner {
                 .build();
 
         userService.save(admin);
-        userService.findByUsername("admin");
+//        userService.findByUsername("admin");
 
         userService.save(normalUser);
     }

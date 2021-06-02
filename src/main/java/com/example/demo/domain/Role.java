@@ -1,23 +1,17 @@
 package com.example.demo.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
-public class Role{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Role extends DomainEntity{
 
     private String name;
 
@@ -28,8 +22,9 @@ public class Role{
     )
     private Set<Permission> permissions;
 
-//    @ManyToMany(mappedBy = "roles")
-//    private Set<Users> users = new HashSet<Users>();
+/*    For bi-drectional
+    @ManyToMany(mappedBy = "roles")
+    private Set<Users> users = new HashSet<Users>();*/
 
     public Role(String name, Set<Permission> permissions) {
         this.name = name;

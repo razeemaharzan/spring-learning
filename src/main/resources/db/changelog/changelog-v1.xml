@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="razee (generated)" id="1622549156589-1">
+        <createSequence sequenceName="permission_id_seq"/>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-2">
+        <createSequence sequenceName="role_id_seq"/>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-3">
+        <createSequence sequenceName="users_id_seq"/>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-4">
+        <createTable tableName="permission">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="permission_pkey"/>
+            </column>
+            <column name="name" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-5">
+        <createTable tableName="role">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="role_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-6">
+        <createTable tableName="role_permission">
+            <column name="role_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-7">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-8">
+        <createTable tableName="users_roles">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-9">
+        <addPrimaryKey columnNames="role_id, permission_id" constraintName="role_permission_pkey"
+                       tableName="role_permission"/>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-10">
+        <addPrimaryKey columnNames="user_id, role_id" constraintName="users_roles_pkey" tableName="users_roles"/>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-11">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_roles"
+                                 constraintName="fk2o0jvgh89lemvvo17cbqvdxaa" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-12">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="role_permission"
+                                 constraintName="fka6jx8n8xkesmjmv6jqug6bg68" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="role"/>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-13">
+        <addForeignKeyConstraint baseColumnNames="permission_id" baseTableName="role_permission"
+                                 constraintName="fkf8yllw1ecvwqy3ehyxawqa1qp" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="permission"/>
+    </changeSet>
+    <changeSet author="razee (generated)" id="1622549156589-14">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users_roles"
+                                 constraintName="fkt4v0rrweyk393bdgt107vdx0x" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="role"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -5,24 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Permission {
+public class Permission extends DomainEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     private PermissionEnum name;
 
-//    @ManyToMany(mappedBy = "permissions")
-//    private Set<Role> roles = new HashSet<Role>();
+/*    For bi-drectional
+    @ManyToMany(mappedBy = "permissions")
+    private Set<Role> roles = new HashSet<Role>();*/
 
     public Permission(PermissionEnum name) {
         this.name = name;

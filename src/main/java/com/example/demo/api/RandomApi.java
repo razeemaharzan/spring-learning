@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class MainApi {
+public class RandomApi {
     @GetMapping(value = "/resource")
     public Map<String, Object> home() {
         Map<String, Object> model = new HashMap<String, Object>();
