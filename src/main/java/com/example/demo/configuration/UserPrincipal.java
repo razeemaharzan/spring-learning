@@ -1,5 +1,7 @@
-package com.example.demo.domain;
+package com.example.demo.configuration;
 
+import com.example.demo.domain.Role;
+import com.example.demo.domain.Users;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

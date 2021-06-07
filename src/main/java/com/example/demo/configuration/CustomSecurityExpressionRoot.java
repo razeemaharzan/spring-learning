@@ -1,12 +1,10 @@
 package com.example.demo.configuration;
 
-import com.example.demo.domain.UserPrincipal;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,7 +54,7 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
                     .collect(Collectors.toList());
 
             return Arrays.stream(permissions)
-                    .filter(s -> !s.isBlank())
+                    .filter(s -> !s.isEmpty())
                     .allMatch(permission -> authenticationPermissions.contains(permission));
         }
         return false;
